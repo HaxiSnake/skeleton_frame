@@ -157,6 +157,15 @@ class Graph():
             A.append(normalize_hull_matrix)
             A = np.stack(A)
             self.A = A
+        elif strategy == "hull":
+            A = []
+            path = os.path.realpath(__file__)
+            file_path = os.path.join(os.path.dirname(path),"hull_%s_A.npy"%(self.layout))
+            hull_matrix = np.load(file_path)
+            normalize_hull_matrix = normalize_digraph(hull_matrix)
+            A.append(normalize_hull_matrix)
+            A = np.stack(A)
+            self.A = A
         else:
             raise ValueError("Do Not Exist This Strategy")
 

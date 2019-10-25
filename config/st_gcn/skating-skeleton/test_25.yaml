@@ -1,4 +1,4 @@
-weights: ./output/skating-skeleton-2/stgcn/stgcn_25_83.29.pt
+weights: ./output/skating-skeleton-2/stgcn/best_model.pt
 work_dir: ./output/skating-skeleton-2/stgcn/
 # feeder
 feeder: feeder.feeder_gcn_skating_25.Feeder
@@ -13,6 +13,7 @@ model_args:
   in_channels: 2
   num_class: 10
   edge_importance_weighting: True
+  residual: True
   graph_args:
     layout: 'openpose25'
     strategy: 'spatial'

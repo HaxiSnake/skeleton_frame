@@ -20,6 +20,7 @@ model_args:
   in_channels: 2
   num_class: 10
   edge_importance_weighting: True
+  residual: True
   graph_args:
     layout: 'openpose25'
     strategy: 'spatial'
