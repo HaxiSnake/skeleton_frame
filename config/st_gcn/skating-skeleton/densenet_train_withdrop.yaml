@@ -1,0 +1,41 @@
+work_dir: ./output/skating-skeleton/densenet
+weights: ./models/densenet_76.47.dat
+
+# feeder
+feeder: feeder.feeder_densenet_skating.Skating
+train_feeder_args:
+  train: True
+  random_choose: True
+  random_move: True
+  window_size: 256 
+  data: ./data/SkatingSkeleton/
+test_feeder_args:
+  train: False
+  window_size: 256
+  data: ./data/SkatingSkeleton/
+
+# model
+model: net.densenet.DenseNet
+model_args:
+  in_channels: 2
+  num_class: 10
+  small_inputs: False
+  depth: 148
+  drop_rate: 0
+
+# training
+device: [0,1]
+batch_size: 128 
+test_batch_size: 128
+
+# optim
+base_lr: 0.2
+step: [150, 225]
+num_epoch: 300
+
+# visulize and debug
+log_interval: 50
+save_interval: 50
+eval_interval: 1
+
+

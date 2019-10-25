@@ -1,0 +1,11 @@
+models/*
+!models/pose
+models/pose/*
+!models/pose/coco
+models/pose/coco/*
+.vscode
+__pycache__
+.ipynb_checkpoints
+data/*
+output/*
+command.txt

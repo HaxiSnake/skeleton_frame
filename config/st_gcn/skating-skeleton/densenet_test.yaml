@@ -1,0 +1,21 @@
+weights: ./output/skating-skeleton/densenet/best_model.pt
+
+# feeder
+feeder: feeder.feeder_densenet_skating.Skating
+test_feeder_args:
+  train: False
+  window_size: 256
+  data: ./data/SkatingSkeleton/
+
+# model
+model: net.densenet.DenseNet
+model_args:
+  in_channels: 2
+  num_class: 10
+  small_inputs: False
+  depth: 148
+
+# test 
+phase: test
+device: 1
+test_batch_size: 32

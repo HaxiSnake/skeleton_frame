@@ -1,0 +1,21 @@
+weights: ./output/skating-skeleton-18/densenet/best_model.pt
+work_dir: ./output/skating-skeleton-18/densenet
+# feeder
+feeder: feeder.feeder_densenet_skating.Skating
+test_feeder_args:
+  window_size: 256
+  data_path: ./data/SkatingSkeleton2/val_data.npy
+  label_path: ./data/SkatingSkeleton2/val_label.pkl
+
+# model
+model: net.densenet.DenseNet
+model_args:
+  in_channels: 2
+  num_class: 10
+  input_type: '18'
+  depth: 148
+
+# test 
+phase: test
+device: 1
+test_batch_size: 32

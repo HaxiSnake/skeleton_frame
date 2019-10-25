@@ -1,0 +1,43 @@
+work_dir: ./output/skating-skeleton-18/densenet_origin
+# weights: ./output/skating-skeleton/best_model.pt
+
+# feeder
+feeder: feeder.feeder_densenet_skating.Skating
+train_feeder_args:
+  random_choose: True
+  random_move: True
+  window_size: 256 
+  data_path: ./data/SkatingSkeleton2/train_data.npy
+  label_path: ./data/SkatingSkeleton2/train_label.pkl
+  centralization: False
+test_feeder_args:
+  window_size: 256
+  data_path: ./data/SkatingSkeleton2/val_data.npy
+  label_path: ./data/SkatingSkeleton2/val_label.pkl
+  centralization: False
+
+# model
+model: net.densenet.DenseNet
+model_args:
+  in_channels: 2
+  num_class: 10
+  input_type: '18'
+  depth: 148
+  drop_rate: 0
+
+# training
+device: [1]
+batch_size: 64 
+test_batch_size: 64
+
+# optim
+base_lr: 0.1
+step: [150, 225]
+num_epoch: 300
+
+# visulize and debug
+log_interval: 5
+save_interval: 50
+eval_interval: 5
+
+

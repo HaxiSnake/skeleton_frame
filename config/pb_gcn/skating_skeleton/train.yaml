@@ -1,0 +1,60 @@
+work_dir: ./output/skating_skeleton/PB-GCN
+# data_path: /media/ssd_storage/NTURGB+D/nturgb+d_skeletons
+# missing_txt: /media/ssd_storage/NTURGB+D/samples_with_missing_skeletons.txt
+
+# Data Loader
+feeder: feeder.pb_loader.skatingloader.SkatingLoader
+train_feeder_args:
+  split_dir: ./data/Skating_25
+  transforms: [IntervalTemporalSampling]
+  window_size: 300
+  signals:
+    temporal_signal: True
+    spatial_signal: True
+    all_signal: True
+test_feeder_args:
+  split_dir: ./data/Skating_25
+  is_training: False
+  transforms: [IntervalTemporalSampling]
+  window_size: 300
+  signals:
+    temporal_signal: True
+    spatial_signal: True
+    all_signal: True
+
+# Model
+model: net.pbgcn.st_gconv_resnet.STGraphConvResnet
+model_args:
+  layers_config: [[64, 64, 1], [64, 64, 1], [64, 64, 1], [64, 128, 2], [128, 128, 1], 
+      [128, 128, 1], [128, 256, 2], [256, 256, 1], [256, 256, 1]]
+  num_class: 10
+  channel: 12
+  window_size: 300
+  num_joints: 25
+  num_actors: 1
+  graph: SkatingGraph
+  graph_args:
+    labeling_mode: 'parts'
+  mask_learning: True
+  use_data_bn: True
+
+# Optimization
+weight_decay: 0.0005
+base_lr: 0.1
+# step: [20, 50, 70]
+step: [40, 100, 140]
+
+# Training
+device: [0,1]
+batch_size: 64
+test_batch_size: 64
+num_epoch: 200
+save_interval: 5
+
+# Evaluation
+log_interval: 2
+eval_interval: 1
+# Initialization from checkpoint
+# start_epoch: 5
+# weights: /media/data_cifs/Kalpit/NTURGB+D/work_dir/cs/STGCN_parts_noaug/epoch65_model.pt
+

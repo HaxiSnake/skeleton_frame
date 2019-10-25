@@ -1,0 +1,50 @@
+work_dir: ./output/skating-skeleton-18/dstg/
+# weights: ./output/skating-skeleton/best_model.pt
+
+# feeder
+feeder: feeder.feeder_gcn_skating.Feeder
+train_feeder_args:
+  random_choose: True
+  random_move: True
+  window_size: 256 
+  data_path: ./data/SkatingSkeleton2/train_data.npy
+  label_path: ./data/SkatingSkeleton2/train_label.pkl
+test_feeder_args:
+  window_size: 256
+  data_path: ./data/SkatingSkeleton2/val_data.npy
+  label_path: ./data/SkatingSkeleton2/val_label.pkl
+
+# model
+model: net.dstg.DSTG
+model_args:
+  growth_rate: 12
+  depth: 148
+  compression: 0.5
+  num_init_features: 24
+  bn_size: 4
+  tsize: 256
+  in_channels: 2
+  num_class: 10
+  residual: True
+  edge_importance_weighting: True
+  edge_importance_depth: 8  
+  graph_args:
+    layout: 'openpose'
+    strategy: 'spatial'
+
+# training
+device: [0,1]
+batch_size: 64 
+test_batch_size: 64
+
+#optim
+base_lr: 0.05
+step: [150, 225]
+num_epoch: 300
+
+# visulize and debug
+log_interval: 2
+save_interval: 50
+eval_interval: 1
+
+

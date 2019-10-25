@@ -1,0 +1,45 @@
+weights: ./output/ntu-xsub/DSTG/epoch80_model.pt
+work_dir: ./output/ntu-xsub/DSTG
+
+# feeder
+feeder: feeder.feeder_ntu.Feeder
+train_feeder_args:
+  data_path: ./data/NTU-RGB-D/xsub/train_data.npy
+  label_path: ./data/NTU-RGB-D/xsub/train_label.pkl
+  window_size: 256
+test_feeder_args:
+  data_path: ./data/NTU-RGB-D/xsub/val_data.npy
+  label_path: ./data/NTU-RGB-D/xsub/val_label.pkl
+  window_size: 256
+
+# model
+model: net.dstg.DSTG
+model_args:
+  in_channels: 3
+  num_class: 60
+  dropout: 0
+  edge_importance_weighting: True
+  tsize: 256
+  graph_args:
+    layout: 'ntu-rgb+d'
+    strategy: 'spatial'
+
+#optim
+weight_decay: 0.0001
+base_lr: 0.05
+step: [10, 50, 150]
+
+# training
+device: [0,1]
+batch_size: 32 
+test_batch_size: 32
+start_epoch: 80
+num_epoch: 160
+
+# visulize and debug
+log_interval: 100
+save_interval: 5
+eval_interval: 5
+
+
+
