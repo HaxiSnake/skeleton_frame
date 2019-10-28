@@ -5,6 +5,8 @@ import sys
 # torchlight
 import torchlight.torchlight as torchlight
 from torchlight.torchlight import import_class
+# import torchlight
+# from torchlight import import_class
 
 if __name__ == '__main__':
 

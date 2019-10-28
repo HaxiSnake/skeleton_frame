@@ -16,7 +16,7 @@ model_args:
   residual: True
   graph_args:
     layout: 'openpose25'
-    strategy: 'spatial'
+    strategy: 'ones'
 
 # test 
 phase: test

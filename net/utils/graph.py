@@ -127,6 +127,10 @@ class Graph():
                     A.append(a_further)
             A = np.stack(A)
             self.A = A
+        elif strategy == 'ones':
+            A = np.ones((1, self.num_node, self.num_node))
+            A[0] = normalize_digraph(np.ones((self.num_node, self.num_node)))
+            self.A = A
         elif strategy == "spatial_hull":
             A = []
             for hop in valid_hop:
@@ -157,6 +161,38 @@ class Graph():
             A.append(normalize_hull_matrix)
             A = np.stack(A)
             self.A = A
+        elif strategy == "spatial_hull2":
+            A = []
+            for hop in valid_hop:
+                a_root = np.zeros((self.num_node, self.num_node))
+                a_close = np.zeros((self.num_node, self.num_node))
+                a_further = np.zeros((self.num_node, self.num_node))
+                for i in range(self.num_node):
+                    for j in range(self.num_node):
+                        if self.hop_dis[j, i] == hop:
+                            if self.hop_dis[j, self.center] == self.hop_dis[
+                                    i, self.center]:
+                                a_root[j, i] = normalize_adjacency[j, i]
+                            elif self.hop_dis[j, self.
+                                              center] > self.hop_dis[i, self.
+                                                                     center]:
+                                a_close[j, i] = normalize_adjacency[j, i]
+                            else:
+                                a_further[j, i] = normalize_adjacency[j, i]
+                if hop == 0:
+                    A.append(a_root)
+                else:
+                    A.append(a_root + a_close)
+                    A.append(a_further)
+            path = os.path.realpath(__file__)
+            file_path = os.path.join(os.path.dirname(path),"hull_%s_A.npy"%(self.layout))
+            hull_matrix = np.load(file_path)
+            hull2 = np.zeros_like(hull_matrix)
+            hull2[hull_matrix>=1] = 1
+            normalize_hull2 = normalize_digraph(hull2)
+            A.append(normalize_hull2)
+            A = np.stack(A)
+            self.A = A
         elif strategy == "hull":
             A = []
             path = os.path.realpath(__file__)
@@ -164,6 +200,17 @@ class Graph():
             hull_matrix = np.load(file_path)
             normalize_hull_matrix = normalize_digraph(hull_matrix)
             A.append(normalize_hull_matrix)
+            A = np.stack(A)
+            self.A = A
+        elif strategy == "hull2":
+            A = []
+            path = os.path.realpath(__file__)
+            file_path = os.path.join(os.path.dirname(path),"hull_%s_A.npy"%(self.layout))
+            hull_matrix = np.load(file_path)
+            hull2 = np.zeros_like(hull_matrix)
+            hull2[hull_matrix>=1] = 1
+            normalize_hull2 = normalize_digraph(hull2)
+            A.append(normalize_hull2)
             A = np.stack(A)
             self.A = A
         else:
