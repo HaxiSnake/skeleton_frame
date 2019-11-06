@@ -213,6 +213,17 @@ class Graph():
             A.append(normalize_hull2)
             A = np.stack(A)
             self.A = A
+        elif strategy == "hull3":
+            A = []
+            path = os.path.realpath(__file__)
+            file_path = os.path.join(os.path.dirname(path),"hull_%s_A.npy"%(self.layout))
+            hull_matrix = np.load(file_path)
+            hull3 = hull_matrix.copy()
+            hull3[hull_matrix<=3] = 0
+            normalize_hull3 = normalize_digraph(hull3)
+            A.append(normalize_hull3)
+            A = np.stack(A)
+            self.A = A
         else:
             raise ValueError("Do Not Exist This Strategy")
 

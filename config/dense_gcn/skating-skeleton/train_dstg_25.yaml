@@ -30,7 +30,7 @@ model_args:
   edge_importance_depth: 1
   graph_args:
     layout: 'openpose25'
-    strategy: 'spatial_hull'
+    strategy: 'hull3'
 # training
 device: [0,1]
 batch_size: 64
