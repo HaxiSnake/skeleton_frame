@@ -23,7 +23,7 @@ model_args:
   residual: True
   graph_args:
     layout: 'openpose25'
-    strategy: 'ones'
+    strategy: 'spatial_hull'
 
 # training
 device: [0,1]

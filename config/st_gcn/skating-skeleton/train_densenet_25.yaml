@@ -22,9 +22,14 @@ model_args:
   input_type: '25'
   depth: 148
   drop_rate: 0
-
+  growth_rate: 12
+  compression: 0.5  
+  num_init_features: 24
+  bn_size: 4
+  drop_rate: 0
+  efficient: False
 # training
-device: [1]
+device: [0,1]
 batch_size: 64 
 test_batch_size: 64
 
@@ -34,8 +39,8 @@ step: [150, 225]
 num_epoch: 300
 
 # visulize and debug
-log_interval: 5
+log_interval: 2
 save_interval: 50
-eval_interval: 5
+eval_interval: 1
 
 

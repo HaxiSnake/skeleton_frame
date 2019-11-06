@@ -16,12 +16,12 @@ model_args:
   residual: True
   graph_args:
     layout: 'openpose25'
-    strategy: 'ones'
+    strategy: 'spatial_hull'
 
 # test 
 phase: test
 device: 1
-test_batch_size: 1
+test_batch_size: 64
 
 # debug
 save_result: True

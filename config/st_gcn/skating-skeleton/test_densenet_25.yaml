@@ -14,7 +14,13 @@ model_args:
   num_class: 10
   input_type: '25'
   depth: 148
-
+  drop_rate: 0
+  growth_rate: 12
+  compression: 0.5
+  num_init_features: 24
+  bn_size: 4
+  drop_rate: 0
+  efficient: False
 # test 
 phase: test
 device: 1
